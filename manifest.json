@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "Show Static Source Hosts",
+	"description": "This extension can show hosts to you which the static source used",
+	"version": "1.0.0",
+	"author": "suanban",
+
+	"icons": {
+        "48": "icon.png",
+        "128": "icon128.png"
+    },
+	"background": {
+	    "scripts": ["js/background.js"]
+	},
+	"content_scripts":[
+	    {
+			"matches":["*://*/*"],
+			"js":["js/jquery.min.js","js/content.js"],
+			"css":["css/content.css"]
+	    }
+	],
+	"browser_action": {
+		"default_icon": "icon.png"
+	},
+	"permissions": [
+		"*://*/*",
+		"webRequest",
+		"tabs"
+	],
+	"homepage_url": "https://github.com/wanbei/show_static_source_hosts"
+}

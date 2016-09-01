@@ -1,0 +1,34 @@
+#whatHostUsed{
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    z-index:9999;
+}
+#whatHostUsed ul {
+    padding: 0;
+    margin: 0 3px 3px 3px;
+}
+#whatHostUsed li {
+    padding: 0;
+    list-style: none;
+    margin-bottom: 3px; 
+}
+#whatHostUsed span{
+    display: inline-block;
+    padding: 2px 3px;
+    border-radius: 5px;
+    color: #FFF;
+    font-size:10px;
+    font-weight: bolder;
+    background: #33c86a;
+}
+
+#whatHostUsed .fore-li span.fore1{
+    background: #33c86a;
+}
+#whatHostUsed .fore-li span.fore2{
+    background: #33c86a;
+    margin-left:5px; 
+}
