@@ -32,21 +32,26 @@ $(function(){
 				var listHtml = mkListHtml(response.mapping);
 				var allhtml = mkAllHtml(listHtml);
 				$("body").append(allhtml);
-				$("#whatHostUsed").bind("mouseover",function(){
-					if($(this).css("left") == '0px') {
-						$(this).css("left", "auto");
-						$(this).css("right", "0px");
+				$(".whatHostUsed").bind("mouseover",function(){
+					if($(this).hasClass("whatHostUsedLeft")) {
+						$(this).removeClass("whatHostUsedLeft").addClass("whatHostUsedRight")
 					} else {
-						$(this).css("left", "0px");
-						$(this).css("right", "auto");
+						$(this).removeClass("whatHostUsedRight").addClass("whatHostUsedLeft")
 					}
+				// 	if($(this).css("left") == '0px') {
+				// 		$(this).css("left", "auto");
+				// 		$(this).css("right", "0px");
+				// 	} else {
+				// 		$(this).css("left", "0px");
+				// 		$(this).css("right", "auto");
+				// 	}
 				});
 			}
 		});
 	}, 1000)
 
 	function mkAllHtml(listHtml) {
-		var allhtml = '<div id="whatHostUsed">\
+		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\
 					<ul>' + listHtml + '</ul>\
 				</div>';
 		return allhtml;
