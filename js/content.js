@@ -38,13 +38,6 @@ $(function(){
 					} else {
 						$(this).removeClass("whatHostUsedRight").addClass("whatHostUsedLeft")
 					}
-				// 	if($(this).css("left") == '0px') {
-				// 		$(this).css("left", "auto");
-				// 		$(this).css("right", "0px");
-				// 	} else {
-				// 		$(this).css("left", "0px");
-				// 		$(this).css("right", "auto");
-				// 	}
 				});
 			}
 		});
