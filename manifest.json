@@ -16,7 +16,8 @@
 	    {
 			"matches":["*://*/*"],
 			"js":["js/jquery.min.js","js/content.js"],
-			"css":["css/content.css"]
+			"css":["css/content.css"],
+			"run_at" : "document_end"
 	    }
 	],
 	"browser_action": {

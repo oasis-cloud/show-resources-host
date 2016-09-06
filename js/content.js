@@ -1,4 +1,4 @@
-$(function(){
+// $(function(){
 	var domains = {};
 	var $scripts = $("script[src]");
 	var $links = $("link[src]");
@@ -12,7 +12,7 @@ $(function(){
 			domains[matched[0]] = true;
 		}
 	}
-	
+
 	$links.each(function(){
 		var element_src = $(this).attr('src');
 		set_to_domains(element_src);
@@ -39,7 +39,7 @@ $(function(){
 				});
 			}
 		});
-	}, 1500)
+	}, 1000)
 
 	function mkAllHtml(listHtml) {
 		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\
@@ -58,6 +58,6 @@ $(function(){
 		}
 		return listHtml.join('');
 	}
-});
+// });
 
 
