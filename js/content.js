@@ -41,7 +41,7 @@ $(function(){
 				});
 			}
 		});
-	}, 1000)
+	}, 2000)
 
 	function mkAllHtml(listHtml) {
 		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\

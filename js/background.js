@@ -39,8 +39,6 @@ chrome.runtime.onMessage.addListener(
 		var domains = request.domains;
 		var domain, i = 0;
 		domains = domains.concat(configs);
-		console.log(hostNames)
-		console.log(domains)
 		for(; i < domains.length; i++) {
 			domain = domains[i];
 			if(hostNames[domain]) {
