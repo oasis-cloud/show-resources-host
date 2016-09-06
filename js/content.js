@@ -2,26 +2,24 @@ $(function(){
 	var domains = {};
 	var $scripts = $("script[src]");
 	var $links = $("link[src]");
-	
-	
 	domains[location.hostname] = true;
 
+	function set_to_domains(element_src) {
+		if(element_src.indexOf('/') == 0 || element_src.indexOf('./') == 0 || element_src.indexOf('../') == 0) {
+			domains[location.host] = true;
+		} else {
+			var matched = element_src.match(/([a-z0-9A-Z]+\.)+[a-z]+/);
+			domains[matched[0]] = true;
+		}
+	}
+	
 	$links.each(function(){
 		var element_src = $(this).attr('src');
-		// var anchor_element = document.createElement("a");
-		// anchor_element.href = element_src;
-		// domains[anchor_element.host] = true;
-		var matched = element_src.match(/([a-z0-9A-Z]+\.)+[a-z]+/);
-		domains[matched[0]] = true;
-
+		set_to_domains(element_src);
 	});
 	$scripts.each(function(){
 		var element_src = $(this).attr('src');
-		// var anchor_element = document.createElement("a");
-		// anchor_element.href = element_src;
-		// domains[anchor_element.host] = true;
-		var matched = element_src.match(/([a-z0-9A-Z]+\.)+[a-z]+/);
-		domains[matched[0]] = true;
+		set_to_domains(element_src)
 	});
 	
 	domains = Object.keys(domains);
@@ -41,7 +39,7 @@ $(function(){
 				});
 			}
 		});
-	}, 2000)
+	}, 1500)
 
 	function mkAllHtml(listHtml) {
 		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\
