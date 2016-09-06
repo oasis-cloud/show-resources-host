@@ -13,9 +13,16 @@ function getHost(url) {
 	return null;
 }
 
+function get_localStorage_to_array() {
+	var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-names");
+	if(!values) return [];
+	values = values.split("|");
+	return values;
+}
+
 chrome.webRequest.onCompleted.addListener(
         function(details) {
-			var hostName = getHost(details.url);
+        	var hostName = getHost(details.url);
 			if(hostName) {
         		hostNames[hostName] = details.ip;
 			}
@@ -26,11 +33,15 @@ chrome.webRequest.onCompleted.addListener(
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		var filtered = {};
-		var domains = request.domains;
-		var domainsLength = domains.length;
-		var domain, i = 0;
+		
+		var configs = get_localStorage_to_array();
 
-		for(; i < domainsLength; i++) {
+		var domains = request.domains;
+		var domain, i = 0;
+		domains = domains.concat(configs);
+		console.log(hostNames)
+		console.log(domains)
+		for(; i < domains.length; i++) {
 			domain = domains[i];
 			if(hostNames[domain]) {
 				filtered[domain] = hostNames[domain];

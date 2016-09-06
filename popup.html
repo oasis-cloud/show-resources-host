@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Settings</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/popup.css">
+	<script type="text/javascript" src="./js/vue.csp.js"></script>
+</head>
+<body>
+	<div class="container pop-container">
+		<h6>设置需要显示 IP 的 HostName </h6>
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="add-list-form" class="form-inline" role="form">
+					<div class="form-group pop-form-group">
+						<input class="form-control pop-control" type="URL" name="url" value="" placeholder="what.hosts.you.want.com">
+						<span class="btn btn-primary" v-on:click="add_host_name">Add Host</span>
+					</div>
+					<!-- <component-list-add></component-list-add> -->
+				</form>
+			</div>
+		</div>
+		<div id="pop-lists" class="row">
+			<div class="col-lg-12">
+				<ul class="pop-ul">
+					<!-- <component-list :lists="lists"></component-list> -->
+					<li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host" v-on:mouseenter="del_mouseenter" v-on:mouseout="del_mouseout">X</span></li>
+					<!-- <li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host">X</span></li>
+					<li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host">X</span></li> -->
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="pop-tips">
+					<h6>说明</h6>
+					<p class="pop-desc">安装本插件后，可在激活的 Tab 选项卡中显示页面源码所包含的 script、link 标签使用的 HostName 的 IP 地址。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="./js/popup.js"></script>
+</body>
+</html>

@@ -26,7 +26,8 @@
 	"permissions": [
 		"*://*/*",
 		"webRequest",
-		"tabs"
+		"tabs",
+		"storage"
 	],
 	"homepage_url": "https://github.com/wanbei/show-static-source-hosts"
 }

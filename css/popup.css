@@ -1,0 +1,66 @@
+.pop-container{
+	width: 350px;
+	padding:15px 10px;	
+}
+.pop-container ul,.pop-container li{
+	padding: 0px;
+	margin:0px;
+	list-style: none
+}
+.form-inline .pop-form-group{
+	width: 100%;
+	margin-bottom: 0;
+}
+.form-inline .pop-control {
+	display: inline-block;
+	width: 73%;
+}
+.pop-container .pop-ul{
+	color: #2f1206;
+	font-weight: bold;
+	border:1px solid #f3f3f3;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+.pop-ul li{
+	border-bottom: 1px dashed #afafaf;
+	height: 30px;
+	line-height: 30px;
+	padding:0 10px;
+}
+.pop-ul li:last-child{
+	border: 0px;
+}
+.pop-ul li.hover{
+	text-shadow: 1px 1px #c3c0c0;
+}
+
+.pop-li-del {
+	float: right;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size:12px;
+	margin-top: 5px;
+	border:1px solid #FF0000;
+	border-radius: 50%;
+	text-align: center;
+	color: #FF0000;
+	font-weight: bold;
+	cursor: pointer;
+}
+.pop-ul li:hover{
+	text-shadow: 1px 1px #c3c0c0;
+}
+
+.pop-desc{
+	font-size: 10px;
+}
+
+.pop-tips {
+	color: #696969;
+	border:1px solid #f3f3f3;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding: 0 10px;
+}
