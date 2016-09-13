@@ -98,8 +98,8 @@ window.onload = function() {
 		}
 	})
 	var default_conf = get_localStorage_defaultconf();
-	console.log(default_conf)
-	if(typeof default_conf == "undefined") {
+	console.log(typeof default_conf)
+	if(default_conf == null) {
 		set_localStorage_defaultconf("true");
 		v_default_conf.open = "true";
 	} else {
