@@ -48,8 +48,9 @@ window.onload = function() {
 		el:"#add-list-form",
 		methods:{
 			add_host_name:function(event){
-				var el_input = document.querySelector("input", this.$el);
+				var el_input = document.querySelector("#add-list-form input", this.$el);
 				var el_a = document.createElement("a");
+				console.log(el_input.value)
 				el_a.href = "http://" + el_input.value;
 				if(el_a.host) {
 					var localStorage_array = get_localStorage_to_array();
@@ -98,7 +99,7 @@ window.onload = function() {
 		}
 	})
 	var default_conf = get_localStorage_defaultconf();
-	console.log(typeof default_conf)
+	
 	if(default_conf == null) {
 		set_localStorage_defaultconf("true");
 		v_default_conf.open = "true";
