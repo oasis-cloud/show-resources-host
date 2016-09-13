@@ -8,8 +8,28 @@
 	<script type="text/javascript" src="./js/vue.csp.js"></script>
 </head>
 <body>
+	<div class="row compent-header">
+		<h4 class="col-lg-8 title">设置待显示的 HostName </h4>
+		<h6 class="col-lg-4 explain-header" v-on:click="show_explain"><span><查看说明><span></h6>
+	</div>
 	<div class="container pop-container">
-		<h6>设置需要显示 IP 的 HostName </h6>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="default-conf-form" class="form-inline default-conf-form" role="form">
+					<div class="form-group pop-form-group">
+						<span>默认配置：</span>
+							<label v-if="open=='true'">
+								<input type="checkbox" name="openDefault" v-on:click="isopen" checked> Open
+				            </label>
+				            <label v-if="open=='false'">
+								<input type="checkbox" name="openDefault" v-on:click="isopen"> Open
+				            </label>
+					</div>
+					<!-- <component-list-add></component-list-add> -->
+				</form>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<form id="add-list-form" class="form-inline" role="form">
@@ -31,7 +51,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="row">
+		<div id="explain" class="row"  data-open="no">
 			<div class="col-lg-12">
 				<div class="pop-tips">
 					<h6>说明</h6>

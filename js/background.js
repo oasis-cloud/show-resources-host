@@ -13,6 +13,11 @@ function getHost(url) {
 	return null;
 }
 
+function get_localStorage_defaultconf() {
+	var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-default-conf");
+	return values;
+}
+
 function get_localStorage_to_array() {
 	var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-names");
 	if(!values) return [];
@@ -33,11 +38,15 @@ chrome.webRequest.onCompleted.addListener(
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		var filtered = {};
-		
-		var configs = get_localStorage_to_array();
-
 		var domains = request.domains;
 		var domain, i = 0;
+		var configs = get_localStorage_to_array();
+		var isopenConf = get_localStorage_defaultconf();
+
+		if(isopenConf == "false") {
+			domains = [];
+		}
+		
 		domains = domains.concat(configs);
 		for(; i < domains.length; i++) {
 			domain = domains[i];

@@ -11,6 +11,15 @@ window.onload = function() {
 		chrome.extension.getBackgroundPage().localStorage.setItem("pop-host-names", value.join("|"));
 		return true;
 	}
+	function get_localStorage_defaultconf() {
+		var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-default-conf");
+		return values;
+	}
+	function set_localStorage_defaultconf(value) {
+		if(!value) return false;
+		chrome.extension.getBackgroundPage().localStorage.setItem("pop-host-default-conf", value);
+		return true;
+	}
 
 	var v_host_lists = new Vue({
 		el:'#pop-lists',
@@ -55,7 +64,47 @@ window.onload = function() {
 			}
 		}
 	});
+	var v_explain = new Vue({
+		el:".explain-header",
+		methods:{
+			show_explain:function(event){
+				var $explain = document.querySelector("#explain");
+				var is_open = $explain.dataset.open;
+				if(is_open == 'no') {
+					$explain.style.display = "block";
+					$explain.dataset.open = "yes";
+				} else {
+					$explain.style.display = "none";
+					$explain.dataset.open = "no";
+				}
+			}
+		}
+	});
 
+	var v_default_conf = new Vue({
+		el:"#default-conf-form",
+		data:{
+			open:"true"
+		},
+		methods:{
+			isopen:function(event){
+				if(event.target.checked) {
+					set_localStorage_defaultconf("true");
+				} else {
+					set_localStorage_defaultconf("false");
+				}
+				
+			}
+		}
+	})
+	var default_conf = get_localStorage_defaultconf();
+	console.log(default_conf)
+	if(typeof default_conf == "undefined") {
+		set_localStorage_defaultconf("ture");
+		v_default_conf.open = "true";
+	} else {
+		v_default_conf.open = default_conf;
+	}
 	v_host_lists.lists = get_localStorage_to_array();
 
 }
