@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Show Static Source Hosts",
 	"description": "This extension can show hosts to you which the static source used",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "suanban",
 
 	"icons": {
