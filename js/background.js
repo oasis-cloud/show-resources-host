@@ -13,16 +13,24 @@ function getHost(url) {
 	return null;
 }
 
+function in_arr(key,arr) {
+	for(var i = 0; i < arr.length; i++) {
+		if(arr[i]['d'] == key) {
+			return i
+		}
+	}
+	return false;	
+}
+
 function get_localStorage_defaultconf() {
 	var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-default-conf");
 	return values;
 }
 
 function get_localStorage_to_array() {
-	var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-names");
+	var values = chrome.extension.getBackgroundPage().localStorage.getItem("hosts-names");
 	if(!values) return [];
-	values = values.split("|");
-	return values;
+	return JSON.parse(values);
 }
 
 chrome.webRequest.onCompleted.addListener(
@@ -37,17 +45,27 @@ chrome.webRequest.onCompleted.addListener(
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		var filtered = {};
-		var domains = request.domains;
-		var domain, i = 0;
-		var configs = get_localStorage_to_array();
-		var isopenConf = get_localStorage_defaultconf();
-
+		var filtered = {},
+			domains = request.domains,
+			currentpageurl = request.currentpageurl,
+			domain, i = 0,
+			is_in_arr,
+			configs = get_localStorage_to_array(),
+			isopenConf = get_localStorage_defaultconf();
+		console.log(isopenConf)
 		if(isopenConf == "false") {
-			domains = [];
+			domains = [currentpageurl];
 		}
-		
-		domains = domains.concat(configs);
+
+		is_in_arr = in_arr(currentpageurl, configs);
+
+		if(is_in_arr === false && isopenConf == "false") {
+			sendResponse({mapping: filtered});
+			return;
+		} else if(is_in_arr !== false) {
+			domains = domains.concat(configs[is_in_arr]['h']);			
+		}
+
 		for(; i < domains.length; i++) {
 			domain = domains[i];
 			if(hostNames[domain]) {
@@ -56,6 +74,7 @@ chrome.runtime.onMessage.addListener(
 		}
 		if(Object.keys(filtered)) {
 			sendResponse({mapping: filtered});
+			return;
 		}
 });
       

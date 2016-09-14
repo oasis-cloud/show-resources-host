@@ -21,11 +21,11 @@
 		var element_src = $(this).attr('src');
 		set_to_domains(element_src)
 	});
-	
+	domains[location.host] = true;
 	domains = Object.keys(domains);
 
 	setTimeout(function(){
-		chrome.runtime.sendMessage({domains: domains}, function(response) {
+		chrome.runtime.sendMessage({domains: domains, currentpageurl:location.host}, function(response) {
 			if(Object.keys(response.mapping).length){
 				var listHtml = mkListHtml(response.mapping);
 				var allhtml = mkAllHtml(listHtml);
@@ -39,7 +39,7 @@
 				});
 			}
 		});
-	}, 1000)
+	}, 1500)
 
 	function mkAllHtml(listHtml) {
 		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\

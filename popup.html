@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Settings</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/popup.css">
+	<link rel="stylesheet" type="text/css" href="./css/popup1.css">
 	<script type="text/javascript" src="./js/vue.csp.js"></script>
 </head>
 <body>
@@ -34,8 +34,13 @@
 			<div class="col-lg-12">
 				<form id="add-list-form" class="form-inline" role="form">
 					<div class="form-group pop-form-group">
-						<input class="form-control pop-control" type="URL" name="url" value="" placeholder="what.hosts.you.want.com">
-						<span class="btn btn-primary" v-on:click="add_host_name">Add Host</span>
+						<input class="form-control pop-control" type="URL" name="url" value="" placeholder="page.domain.name">
+					</div>
+					<div class="form-group pop-form-group">
+						<textarea class="form-control pop-control" type="URL" name="url" value="" placeholder="HostName"></textarea>
+					</div>
+					<div class="form-group pop-form-group">
+						<span class="btn btn-primary add-host-name" v-on:click="add_hosts_name">Add HostName</span>
 					</div>
 					<!-- <component-list-add></component-list-add> -->
 				</form>
@@ -45,9 +50,18 @@
 			<div class="col-lg-12">
 				<ul class="pop-ul">
 					<!-- <component-list :lists="lists"></component-list> -->
-					<li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host" v-on:mouseenter="del_mouseenter" v-on:mouseout="del_mouseout">X</span></li>
-					<!-- <li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host">X</span></li>
-					<li v-for="li in lists"><span>{{li}}</span><span class="pop-li-del" v-on:click="del_host">X</span></li> -->
+					<li v-for="li in lists">
+						<div class="pop-ul-domain">
+						<span>{{ li.d }}</span>
+						<span class="pop-li-del" v-on:click="del_domain">X</span>
+						</div>
+						<ul class="son-ul">
+							<li v-for="item in li.h">
+								<span>{{item}}</span>
+								<span class="pop-li-del" v-on:click="del_host">X</span>
+							</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -55,8 +69,10 @@
 			<div class="col-lg-12">
 				<div class="pop-tips">
 					<h6>说明</h6>
-					<p class="pop-desc">安装本插件后，可在激活的 Tab 选项卡中显示页面源码所包含的 script、link 标签使用的 HostName 的 IP 地址。</p>
-					<p class="pop-desc">关闭默认配置后，在激活的 Tab 选项卡中将不再显示页面源码所包含的 script、link 标签使用的 HostName 的 IP 地址。仅仅显示单独设置的HostName。</p>
+					<p class="pop-desc">安装本插件后，可在激活的 Tab 
+					选项卡中显示页面源码所包含的 script、link 标签 HostName 的 IP 地址。</p>
+					<p class="pop-desc">开启默认配置后，在激活的 Tab 选项卡中将显示页面源码所包含的 script、link 标签 HostName 的 IP 地址，以及显示单独设置的HostName。</p>
+					<p class="pop-desc">关闭默认配置后，在激活的 Tab 选项卡中将不再显示页面源码所包含的 script、link 标签 HostName 的 IP 地址。仅仅显示单独设置的HostName。</p>
 				</div>
 			</div>
 		</div>

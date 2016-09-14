@@ -43,32 +43,62 @@
 }
 .form-inline .pop-form-group{
 	width: 100%;
-	margin-bottom: 0;
+	margin-bottom: 10px;
 }
 .form-inline .pop-control {
 	display: inline-block;
-	width: 73%;
+	width: 100%;
 }
 .pop-container .pop-ul{
 	color: #2f1206;
 	font-weight: bold;
-	border:1px solid #f3f3f3;
-	border-radius: 5px;
 	margin-top: 10px;
 }
-.pop-ul li{
+/* .pop-ul li{
 	border-bottom: 1px dashed #afafaf;
 	height: 30px;
 	line-height: 30px;
 	padding:0 10px;
 }
-.pop-ul li:last-child{
+
+
+ */
+.pop-ul > li {
+	border:1px solid #CCC;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+.pop-ul-domain{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	border-bottom: 1px solid #CCC;
+}
+.pop-container ul.son-ul{
+	font-size: 10px;
+}
+.pop-container ul.son-ul li:before{
+	content: "·";
+	font-size: 12px;
+	font-weight: bolder;
+	margin-right: 5px;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+}
+.pop-container ul.son-ul li{
+	height: 30px;
+	line-height: 30px;
+	padding-left: 20px;
+	padding-right: 10px;
+	border-bottom: 1px dashed #afafaf;
+}
+.pop-container ul.son-ul > li:last-child{
 	border: 0px;
 }
-.pop-ul li.hover{
+.pop-container ul.son-ul li:hover, .pop-ul-domain:hover{
 	text-shadow: 1px 1px #c3c0c0;
 }
-
 .pop-li-del {
 	float: right;
 	width: 20px;
@@ -83,10 +113,6 @@
 	font-weight: bold;
 	cursor: pointer;
 }
-.pop-ul li:hover{
-	text-shadow: 1px 1px #c3c0c0;
-}
-
 .pop-desc{
 	font-size: 10px;
 }
@@ -97,4 +123,7 @@
 	border-radius: 5px;
 	margin-top: 10px;
 	padding: 0 10px;
+}
+.add-host-name{
+	width: 100%;
 }

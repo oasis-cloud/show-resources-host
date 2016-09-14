@@ -1,26 +1,29 @@
 window.onload = function() {
-	function get_localStorage_to_array() {
-		var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-names");
-		if(!values) return [];
-		values = values.split("|");
-		return values;
+	var localstorage;
+
+	if(chrome.extension) {
+		localstorage = 	chrome.extension.getBackgroundPage().localStorage;
+	} else {
+		localstorage = localStorage;
 	}
 
-	function set_localStorage(value) {
-		if(!value) return false;
-		chrome.extension.getBackgroundPage().localStorage.setItem("pop-host-names", value.join("|"));
-		return true;
-	}
 	function get_localStorage_defaultconf() {
-		var values = chrome.extension.getBackgroundPage().localStorage.getItem("pop-host-default-conf");
+		var values = localstorage.getItem("pop-host-default-conf");
 		return values;
 	}
 	function set_localStorage_defaultconf(value) {
 		if(!value) return false;
-		chrome.extension.getBackgroundPage().localStorage.setItem("pop-host-default-conf", value);
+		localstorage.setItem("pop-host-default-conf", value);
 		return true;
 	}
-
+	function in_arr(key,arr) {
+		for(var i = 0; i < arr.length; i++) {
+			if(arr[i]['d'] == key) {
+				return i
+			}
+		}
+		return false;	
+	}
 	var v_host_lists = new Vue({
 		el:'#pop-lists',
 		data:{
@@ -28,18 +31,47 @@ window.onload = function() {
 		},
 		methods:{
 			del_host:function(event){
-				console.log(event.target)
-				var el_host = event.target.previousSibling.innerText;
-				v_host_lists.lists.splice(v_host_lists.lists.indexOf(el_host), 1);
-				set_localStorage(v_host_lists.lists);
+				var el_host = event.target.previousSibling,
+					el_domain = event.target.parentElement.parentElement.previousSibling,
+					host_name,
+					is_in_arr,
+					domain_name;
+				while(el_host.nodeType == 3) {
+					el_host = el_host.previousSibling
+				}
+
+				host_name = el_host.innerText;
+
+				while(el_domain.nodeType == 3) {
+					el_domain = el_domain.previousSibling
+				}
+				
+				domain_name = el_domain.querySelector("span").innerText;				
+
+				is_in_arr = in_arr(domain_name, v_host_lists.lists);
+
+				if(is_in_arr !== false) {
+					var temp = v_host_lists.lists[is_in_arr]["h"].indexOf(host_name);
+					v_host_lists.lists[is_in_arr]["h"].splice(temp, 1);
+				}
+				
+				localstorage.setItem("hosts-names", JSON.stringify(v_host_lists.lists));
 			},
-			del_mouseenter:function(){
-				var $parent = event.target.parentElement;
-				$parent.className = "hover";
-			},
-			del_mouseout:function(){
-				var $parent = event.target.parentElement;
-				$parent.className = "";	
+			del_domain:function(event){
+				var el_domain = event.target.previousSibling,
+					domain_name,
+					is_in_arr;
+				while(el_domain.nodeType == 3) {
+					el_domain = el_domain.previousSibling
+				}
+				domain_name = el_domain.innerText;
+				
+				is_in_arr = in_arr(domain_name, v_host_lists.lists);
+
+				if(is_in_arr !== false) {
+					v_host_lists.lists.splice(is_in_arr, 1);
+					localstorage.setItem("hosts-names", JSON.stringify(v_host_lists.lists))
+				}
 			}
 		}
 	});
@@ -47,21 +79,35 @@ window.onload = function() {
 	var v_add_list = new Vue({
 		el:"#add-list-form",
 		methods:{
-			add_host_name:function(event){
-				var el_input = document.querySelector("#add-list-form input", this.$el);
-				var el_a = document.createElement("a");
-				console.log(el_input.value)
-				el_a.href = "http://" + el_input.value;
-				if(el_a.host) {
-					var localStorage_array = get_localStorage_to_array();
-					var host_name = el_a.host;
-					if(localStorage_array.indexOf(host_name) == -1) {
-						localStorage_array.push(host_name);
-						if(set_localStorage(localStorage_array)){
-							v_host_lists.lists = localStorage_array;
+			add_hosts_name:function(event){
+				var arr,is_in_arr,newhosts,
+					el_input = document.querySelector("#add-list-form input", this.$el),
+					el_textarea = document.querySelector("#add-list-form textarea", this.$el),
+				
+					page_domain = el_input.value,
+					page_domain_hostname = el_textarea.value;
+
+				if(!page_domain) return;
+				
+				arr = localstorage.getItem("hosts-names") || "[]";
+				arr = JSON.parse(arr);
+				
+				is_in_arr = in_arr(page_domain,arr);
+
+				if(is_in_arr !== false) {
+					newhosts = page_domain_hostname.split("\n");
+
+					for(var i = 0; i < newhosts.length;i++) {
+						if(arr[is_in_arr]['h'].indexOf(newhosts[i]) == -1) {
+							arr[is_in_arr]['h'].push(newhosts[i]);	
 						}
 					}
+					
+				} else {
+					arr.push({d:page_domain,h:page_domain_hostname.split("\n")});
 				}
+				localstorage.setItem("hosts-names", JSON.stringify(arr));
+				v_host_lists.lists = arr;
 			}
 		}
 	});
@@ -98,6 +144,8 @@ window.onload = function() {
 			}
 		}
 	})
+
+
 	var default_conf = get_localStorage_defaultconf();
 	
 	if(default_conf == null) {
@@ -106,6 +154,9 @@ window.onload = function() {
 	} else {
 		v_default_conf.open = default_conf;
 	}
-	v_host_lists.lists = get_localStorage_to_array();
+
+	var obj = localstorage.getItem("hosts-names") || "{}";
+
+	v_host_lists.lists = JSON.parse(obj);
 
 }
