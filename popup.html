@@ -18,13 +18,16 @@
 			<div class="col-lg-12">
 				<form id="default-conf-form" class="form-inline default-conf-form" role="form">
 					<div class="form-group pop-form-group">
-						<span>默认配置：</span>
-							<label v-if="open=='true'">
-								<input type="checkbox" name="openDefault" v-on:click="isopen" checked> Open
+						<p>
+							<span>默认配置：</span>
+							<label class="checkbox-inline" v-if="open=='true'">
+								<input type="checkbox" name="openDefault" v-on:click="isopen" checked><span>ON</span>
 				            </label>
-				            <label v-if="open=='false'">
-								<input type="checkbox" name="openDefault" v-on:click="isopen"> Open
+				            <label class="checkbox-inline" v-if="open=='false'">
+								<input type="checkbox" name="openDefault" v-on:click="isopen"> <span>OFF</span>
 				            </label>
+				        </p>
+				        <p class="d-conf-tip">显示页面中 script、link 标签的 Host</p>
 					</div>
 					<!-- <component-list-add></component-list-add> -->
 				</form>

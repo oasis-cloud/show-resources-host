@@ -54,7 +54,7 @@ window.onload = function() {
 					var temp = v_host_lists.lists[is_in_arr]["h"].indexOf(host_name);
 					v_host_lists.lists[is_in_arr]["h"].splice(temp, 1);
 				}
-				
+
 				localstorage.setItem("hosts-names", JSON.stringify(v_host_lists.lists));
 			},
 			del_domain:function(event){
@@ -135,10 +135,13 @@ window.onload = function() {
 		},
 		methods:{
 			isopen:function(event){
+				var el = event.target.parentElement;
 				if(event.target.checked) {
 					set_localStorage_defaultconf("true");
+					el.querySelector("span").innerText = "ON";
 				} else {
 					set_localStorage_defaultconf("false");
+					el.querySelector("span").innerText = "OFF";
 				}
 				
 			}

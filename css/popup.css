@@ -44,6 +44,7 @@
 .form-inline .pop-form-group{
 	width: 100%;
 	margin-bottom: 10px;
+	padding:5px;
 }
 .form-inline .pop-control {
 	display: inline-block;
@@ -78,7 +79,7 @@
 	font-size: 10px;
 }
 .pop-container ul.son-ul li:before{
-	content: "·";
+	content: "-";
 	font-size: 12px;
 	font-weight: bolder;
 	margin-right: 5px;
@@ -123,6 +124,12 @@
 	border-radius: 5px;
 	margin-top: 10px;
 	padding: 0 10px;
+}
+.pop-form-group p{
+	margin-bottom: 0;
+}
+.d-conf-tip{
+	font-size: 10px;
 }
 .add-host-name{
 	width: 100%;
