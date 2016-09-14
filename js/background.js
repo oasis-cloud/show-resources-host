@@ -14,9 +14,16 @@ function getHost(url) {
 }
 
 function in_arr(key,arr) {
+	var reg;
 	for(var i = 0; i < arr.length; i++) {
-		if(arr[i]['d'] == key) {
+		arr[i]['d'] = arr[i]['d'].replace(".", "\.");
+		arr[i]['d'] = arr[i]['d'].replace("*", ".*");
+		reg = new RegExp(arr[i]['d']);
+		/*if(arr[i]['d'] == key) {
 			return i
+		}*/
+		if(reg.test(key)) {
+			return i;
 		}
 	}
 	return false;	
@@ -52,7 +59,7 @@ chrome.runtime.onMessage.addListener(
 			is_in_arr,
 			configs = get_localStorage_to_array(),
 			isopenConf = get_localStorage_defaultconf();
-		console.log(isopenConf)
+
 		if(isopenConf == "false") {
 			domains = [currentpageurl];
 		}
