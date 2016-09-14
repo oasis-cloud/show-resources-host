@@ -1,4 +1,4 @@
-# Show static source hosts
+# SSSH
 
 ![插件截图](./screenshot.png "插件截图")
 
