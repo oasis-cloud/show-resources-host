@@ -98,6 +98,7 @@ window.onload = function() {
 					newhosts = page_domain_hostname.split("\n");
 
 					for(var i = 0; i < newhosts.length;i++) {
+						if(newhosts[i] == '') continue;
 						if(arr[is_in_arr]['h'].indexOf(newhosts[i]) == -1) {
 							arr[is_in_arr]['h'].push(newhosts[i]);	
 						}
