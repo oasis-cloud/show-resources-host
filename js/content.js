@@ -31,10 +31,10 @@
 				var allhtml = mkAllHtml(listHtml);
 				$("body").append(allhtml);
 				$(".whatHostUsed").bind("mouseover",function(){
-					if($(this).hasClass("whatHostUsedLeft")) {
-						$(this).removeClass("whatHostUsedLeft").addClass("whatHostUsedRight")
-					} else {
+					if($(this).hasClass("whatHostUsedRight")) {
 						$(this).removeClass("whatHostUsedRight").addClass("whatHostUsedLeft")
+					} else {
+						$(this).removeClass("whatHostUsedLeft").addClass("whatHostUsedRight")
 					}
 				});
 			}
@@ -42,7 +42,7 @@
 	}, 1500)
 
 	function mkAllHtml(listHtml) {
-		var allhtml = '<div class="whatHostUsed whatHostUsedLeft">\
+		var allhtml = '<div class="whatHostUsed whatHostUsedRight">\
 					<ul>' + listHtml + '</ul>\
 				</div>';
 		return allhtml;
