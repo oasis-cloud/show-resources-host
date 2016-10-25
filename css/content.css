@@ -18,6 +18,7 @@
     margin: 0 3px 3px 3px;
 }
 .whatHostUsed li {
+    display: block;
     height: 20px;
     line-height: 20px;
     padding: 0;
@@ -38,7 +39,9 @@
     font-weight: bolder;
     background: #33c86a;
 }
-
+.whatHostUsedRight .fore-li{
+    float:none;
+}
 .whatHostUsed .fore-li span.fore1{
     background: #33c86a;
 }
