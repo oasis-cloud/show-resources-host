@@ -6,7 +6,7 @@ var filters = {
 };
 
 function getHost(url) {
-	var matched = url.match(/([a-z0-9A-Z]+\.)+[a-z]+/);
+	var matched = url.match(/([a-z0-9A-Z\-\_]+\.)+[a-z]+/);
 	if(matched.length > 0 ) {
 		return matched[0];
 	}
