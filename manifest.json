@@ -1,9 +1,9 @@
 {
 	"manifest_version": 2,
 	"name": "Show IP",
-	"description": "This extension can show hosts to you which the static source used",
-	"version": "1.0.2",
-	"author": "suanban",
+	"description": "显示静态资源或指定资源使用的 IP 地址",
+	"version": "1.0.3",
+	"author": "WanBei",
 
 	"icons": {
 		"16": "icon16.png",
@@ -22,7 +22,7 @@
 	    }
 	],
 	"browser_action": {
-		"default_icon": "icon.png",
+		"default_icon": "icon128.png",
 		"default_popup": "popup.html"
 	},
 	"permissions": [
