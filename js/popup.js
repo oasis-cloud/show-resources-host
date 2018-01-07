@@ -10,7 +10,7 @@
 window.onload = function() {
 	var LS = !!chrome.extension ? chrome.extension.getBackgroundPage().localStorage : window.localStorage
 	var tip = {
-		'textarea': '开启后将显示指定域名下对应的 Script 和 Link 资源访问的 IP \n可食用通配符‘＊’指定域名，例如：＊.jd.com',
+		'textarea': '开启后将显示指定域名下对应的 Script 和 Link 资源访问的 IP \n可使用通配符‘＊’指定域名，例如：＊.jd.com',
 		'eg': 'www.xxx.com'
 	}
 	var App = new Vue({
