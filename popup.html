@@ -3,82 +3,76 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Settings</title>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bulma.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="./css/popup.css">
 	<script type="text/javascript" src="./js/vue.csp.js"></script>
 </head>
 <body>
-	<div class="row compent-header">
-		<h4 class="col-lg-8 title">设置待显示的 HostName </h4>
-		<h6 class="col-lg-4 explain-header" v-on:click="show_explain"><span><查看说明><span></h6>
-	</div>
-	<div class="container pop-container">
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<form id="default-conf-form" class="form-inline default-conf-form" role="form">
-					<div class="form-group pop-form-group">
-						<p>
-							<span>默认配置：</span>
-							<label class="checkbox-inline" v-if="open=='true'">
-								<input type="checkbox" name="openDefault" v-on:click="isopen" checked><span>ON</span>
-				            </label>
-				            <label class="checkbox-inline" v-if="open=='false'">
-								<input type="checkbox" name="openDefault" v-on:click="isopen"> <span>OFF</span>
-				            </label>
-				        </p>
-				        <p class="d-conf-tip">显示页面中 script、link 标签的 Host</p>
-					</div>
-					<!-- <component-list-add></component-list-add> -->
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<form id="add-list-form" class="form-inline" role="form">
-					<div class="form-group pop-form-group">
-						<input class="form-control pop-control" type="URL" name="url" value="" placeholder="*.jd.com">
-					</div>
-					<div class="form-group pop-form-group">
-						<textarea class="form-control pop-control" type="URL" name="url" value="" placeholder="static.360buyimg.com"></textarea>
-					</div>
-					<div class="form-group pop-form-group">
-						<span class="btn btn-primary add-host-name" v-on:click="add_hosts_name">Add HostName</span>
-					</div>
-					<!-- <component-list-add></component-list-add> -->
-				</form>
-			</div>
-		</div>
-		<div id="pop-lists" class="row">
-			<div class="col-lg-12">
-				<ul class="pop-ul">
-					<!-- <component-list :lists="lists"></component-list> -->
-					<li v-for="li in lists">
-						<div class="pop-ul-domain">
-						<span>{{ li.d }}</span>
-						<span class="pop-li-del" v-on:click="del_domain">X</span>
-						</div>
-						<ul class="son-ul">
-							<li v-for="item in li.h"  v-if="item != ''">
-									<span>{{item}}</span>
-									<span class="pop-li-del" v-on:click="del_host">X</span>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div id="explain" class="row"  data-open="no">
-			<div class="col-lg-12">
-				<div class="pop-tips">
-					<h6>说明</h6>
-					<p class="pop-desc">安装本插件后，可在激活的 Tab 
-					选项卡中显示页面源码所包含的 script、link 标签 HostName 的 IP 地址。</p>
-					<p class="pop-desc">开启默认配置后，在激活的 Tab 选项卡中将显示页面源码所包含的 script、link 标签 HostName 的 IP 地址，以及显示单独设置的HostName。</p>
-					<p class="pop-desc">关闭默认配置后，在激活的 Tab 选项卡中将不再显示页面源码所包含的 script、link 标签 HostName 的 IP 地址。仅仅显示单独设置的HostName。</p>
+	<div id="app" class="columns show-ip-wrap">
+		<div class="column is-narrow lists">
+			<div class="is-clearfix">
+				<div class='add is-pulled-left' v-on:click="add_domain">
+					<span class="icon  has-text-info">
+						<i class="fa fa-plus-square" aria-hidden="true"></i>
+					</span>
+				</div>
+				<div class="save is-pulled-right" v-on:click="save">
+					<span class="icon has-text-info">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i>
+					</span>
 				</div>
 			</div>
+			
+			<ul class="rules-list">
+				<li v-on:click="show_default_setting_desc">
+					<span class="fa has-text-info fa-lg" v-on:click="set_setting">
+						<i v-if="!setting" class="fa fa-toggle-off" aria-hidden="true"></i>
+						<i v-if="setting" class="fa fa-toggle-on" aria-hidden="true"></i>
+					</span>
+					<span class="text small">Default Setting</span>
+				</li>
+				<li v-for="item in domainLists" v-on:click="show_detail($index)" class="is-clearfix">
+					<div class="is-pulled-left" v-bind:class="{isshow: item.isedit}">
+						<strong>
+							<span v-on:click="setting_domain($index)" class="fa has-text-info fa-lg">
+								<i v-if="!item.enable" class="fa fa-toggle-off" aria-hidden="true"></i>
+								<i v-if="item.enable" class="fa fa-toggle-on" aria-hidden="true"></i>
+							</span>
+						</strong>
+						<span  class="text small">{{ item.page }}</span>
+						<span class="is-hidden">
+							<input type="text" v-model="item.page">
+						</span>
+					</div>
+					<div class="is-pulled-right">
+						<span class="icon has-text-info">
+							<i v-on:click="edit($index)" class="fa fa-pencil" aria-hidden="true"></i>
+						</span>
+						<span class="icon has-text-danger">
+							<i v-on:click="del($index)" class="fa fa-window-close" aria-hidden="true"></i>
+						</span>
+					</div>
+				</li>
+				<!-- <li class="is-show is-clearfix">
+					<div class="is-pulled-left">	
+						<strong>
+							<span class="fa has-text-info fa-lg">
+								<i class="fa fa-toggle-on" aria-hidden="true"></i>
+							</span>
+						</strong>
+						<span class="text">Enter Page Domain</span>
+						<span class="is-hidden">
+							<input type="text" value="" placeholder="Enter Page Domain">
+						</span>
+					</div>
+				</li> -->
+			</ul>
 		</div>
+		<div class="column rules-detail-wrap">
+			<textarea v-model="textarea" v-on:keyup="set_detail" id="rules-detail" class="textarea is-small" placeholder="e.g. Hello world"></textarea>
+		</div>
+	
 	</div>
 	<script type="text/javascript" src="./js/popup.js"></script>
 </body>

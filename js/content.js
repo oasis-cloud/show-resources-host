@@ -23,7 +23,7 @@
 	});
 	domains[location.host] = true;
 	domains = Object.keys(domains);
-
+	// console.log(domains)
 	setTimeout(function(){
 		chrome.runtime.sendMessage({domains: domains, currentpageurl:location.host}, function(response) {
 			if(Object.keys(response.mapping).length){
@@ -49,11 +49,15 @@
 	}
 	function mkListHtml(datas) {
 		var listHtml = [];
-		var color = ['#33c86a', '#cb1c39', '#69879f', '#78bd22', '#762ca7', '#03c0c6'];
+		var color = ['#33c86a', '#cb1c39', '#69879f', '#78bd22', '#762ca7', '#03c0c6', '#209cee'];
 		var ran = 0;
-		for(var i in datas) {
-			ran = (ran >= color.length) ? 0 : ran;
-			listHtml.push('<li class="fore-li"><span class="fore1" style="background:'+color[ran]+'">' + i + '</span><span class="fore2" style="background:'+color[ran]+'">' + datas[i] + '</span></li>')
+		var fromCache = ''
+		for(var i = 0; i < datas.length; i++) {
+			ran = (ran >= color.length) ? 0 : ran;	
+			if(datas[i]['detail']) {
+				fromCache = datas[i]['detail']['fromCache'] ? 'fromCache' : 'isFresh'
+				listHtml.push('<li class="fore-li"><span class="fore1" style="background:'+color[ran]+'">' + datas[i]['host'] + '</span><span class="fore2" style="background:'+color[ran]+'">' + datas[i]['detail']['ip'] + '</span><span class="fore3" style="background:'+color[ran]+'">' + fromCache + '</span></li>')
+			}
 			ran += 1;
 		}
 		return listHtml.join('');

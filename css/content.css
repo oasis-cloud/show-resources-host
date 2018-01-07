@@ -3,49 +3,53 @@
     margin: 0;
     position: fixed!important;
     font-size: 10px!important;
-    z-index:9999!important;
+    z-index: 9999!important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsedLeft{
-    bottom: 0px;
-    left:0px;
+    bottom: 0px !important;
+    left: 0px !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsedRight{
-    bottom: 0px;
-    right:0px;
+    bottom: 0px !important;
+    right: 0px !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsed ul {
-    padding: 0;
-    margin: 0 3px 3px 3px;
+    padding: 0 !important;
+    margin: 0 3px 0 3px !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsed li {
-    display: block;
-    height: 20px;
-    line-height: 20px;
-    padding: 0;
-    list-style: none;
-    margin-bottom: 3px; 
+    display: block !important;
+    padding: 0 !important;
+    list-style: none !important;
+    margin-bottom: 3px !important; 
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsedRight li {
-    text-align: right;
+    text-align: right !important;
+    font-weight: normal !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsed span{
-    height: 20px;
-    line-height: 20px;
-    display: inline-block;
-    padding: 0px 5px;
-    border-radius: 5px;
-    color: #FFF;
-    font-size:10px;
-    font-weight: bolder;
-    background: #33c86a;
+    height: 20px !important;
+    line-height: 20px !important;
+    display: inline-block !important;
+    padding: 0px 5px !important;
+    border-radius: 5px !important;
+    color: #FFF !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsedRight .fore-li{
-    float:none;
-}
-.whatHostUsed .fore-li span.fore1{
-    background: #33c86a;
+    float: none !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }
 .whatHostUsed .fore-li span.fore2{
-    background: #33c86a;
-    margin-left:5px; 
+    margin-left: 3px !important;
+    margin-right: 3px !important;
+    font-family: SimSun, "Arial Narrow", HELVETICA !important;
 }

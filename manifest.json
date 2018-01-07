@@ -1,11 +1,12 @@
 {
 	"manifest_version": 2,
-	"name": "Show Static Source Hosts",
+	"name": "Show IP",
 	"description": "This extension can show hosts to you which the static source used",
 	"version": "1.0.2",
 	"author": "suanban",
 
 	"icons": {
+		"16": "icon16.png",
         "48": "icon.png",
         "128": "icon128.png"
     },
@@ -30,5 +31,5 @@
 		"tabs",
 		"storage"
 	],
-	"homepage_url": "https://github.com/wanbei/show-static-source-hosts"
+	"homepage_url": "https://github.com/wanbei/show-ip"
 }
