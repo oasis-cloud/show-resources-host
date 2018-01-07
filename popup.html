@@ -19,7 +19,8 @@
 				</div>
 				<div class="save is-pulled-right" v-on:click="save">
 					<span class="icon has-text-info">
-						<i class="fa fa-floppy-o" aria-hidden="true"></i>
+						<i v-if='clicked' class="fa fa-check" aria-hidden="true"></i>
+						<i v-if='!clicked' class="fa fa-floppy-o" aria-hidden="true"></i>
 					</span>
 				</div>
 			</div>
@@ -70,7 +71,7 @@
 			</ul>
 		</div>
 		<div class="column rules-detail-wrap">
-			<textarea v-model="textarea" v-on:keyup="set_detail" id="rules-detail" class="textarea is-small" placeholder="e.g. Hello world"></textarea>
+			<textarea v-model="textarea" v-on:keyup="set_detail" id="rules-detail" class="textarea is-small" placeholder="例：www.test.com"></textarea>
 		</div>
 	
 	</div>
