@@ -17,11 +17,8 @@ function in_arr(key,arr) {
 	var reg;
 	for(var i = 0; i < arr.length; i++) {
 		arr[i]['d'] = arr[i]['d'].replace(".", "\.");
-		arr[i]['d'] = arr[i]['d'].replace("*", ".*");
+		arr[i]['d'] = arr[i]['d'].replace("*", "(.*)?");
 		reg = new RegExp(arr[i]['d']);
-		/*if(arr[i]['d'] == key) {
-			return i
-		}*/
 		if(reg.test(key)) {
 			return i;
 		}
@@ -45,7 +42,7 @@ function getCurrPageRules(pageUrl, rules) {
 	var page = '' 
 	for(var i = 0; i < rules.length; i++) {
 		page = rules[i]['page']
-		page = page.replace(".", "\.").replace("*", ".*");
+		page = page.replace(".", "\.").replace("*", "(.*)?");
 		reg = new RegExp(page);
 		if(reg.test(pageUrl)) {
 			return rules[i]
@@ -53,15 +50,17 @@ function getCurrPageRules(pageUrl, rules) {
 	}
 }
 function getConfig() {
-	return chrome.extension.getBackgroundPage().localStorage.getItem('show-ip-setting') === 'true' || false
+	var showIPSetting = chrome.extension.getBackgroundPage().localStorage.getItem('show-ip-setting')
+	return (showIPSetting === 'true' || showIPSetting == null) || false
 }
 function getRules() {
-	return chrome.extension.getBackgroundPage().localStorage.getItem('show-ip-domain-lists') ? JSON.parse(chrome.extension.getBackgroundPage().localStorage.getItem('show-ip-domain-lists')) : []
+	var showIpDomainLists = chrome.extension.getBackgroundPage().localStorage.getItem('show-ip-domain-lists')
+	return showIpDomainLists ? JSON.parse(showIpDomainLists) : []
 }
 function filterUserRules(userRule, hosts) {
 	var result = []
 	if(userRule && hosts && userRule.enable) {
-		var domains = userRule['domains']
+		var domains = userRule['domains'].split('\n')
 		for(var i = 0; i < domains.length; i++) {
 			result.push({'host':domains[i], 'detail': hosts[domains[i]]})
 		}
@@ -88,57 +87,28 @@ chrome.webRequest.onCompleted.addListener(
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		// var filtered = {},
-		// 	domains = request.domains,
-		// 	currentpageurl = request.currentpageurl,
-		// 	domain, i = 0,
-		// 	is_in_arr,
-		// 	configs = get_localStorage_to_array(),
-		// 	isopenConf = get_localStorage_defaultconf();
-
-		// if(isopenConf == "false") {
-		// 	domains = [currentpageurl];
-		// }
-
-		// is_in_arr = in_arr(currentpageurl, configs);
-
-		// if(is_in_arr === false && isopenConf == "false") {
-		// 	sendResponse({mapping: filtered});
-		// 	return;
-		// } else if(is_in_arr !== false) {
-		// 	domains = domains.concat(configs[is_in_arr]['h']);			
-		// }
-
-		// for(; i < domains.length; i++) {
-		// 	domain = domains[i];
-		// 	if(hostNames[domain]) {
-		// 		filtered[domain] = hostNames[domain];
-		// 	}
-		// }
-		// if(Object.keys(filtered)) {
-		// 	sendResponse({mapping: filtered});
-		// 	return;
-		// }
 		var config = getConfig() // boolean value
 		var currPageDomains = request.domains // ['*.jd.com', '*.test.com']
 		var currPageUrl = request.currentpageurl // test.jd.com/sss
 		var rules = getRules() 
 		var currPageRules = getCurrPageRules(currPageUrl, rules) // {page:'*.jd.com',enable:true,domains:'sss.jd.com\n'}
+		// console.log('currPageRules')
+		// console.log(currPageRules)
 		var result = []
 		if(config == true) {
 			// 开启配置后要检查两个
 			// staticDomains = staticDomains.concat(currPageRules)
 			result = filterUserRules(currPageRules, hostNames).concat(filterStaticRules(currPageDomains, hostNames))
-			console.log('user and default')
-			console.log(result)
+			// console.log('user and default')
+			// console.log(result)
 		} else {
-			console.log(currPageRules)
+			// console.log(currPageRules)
 			if(currPageRules) {
 				// 没有开启默认配置，仅仅检查用户配置
-				currPageRules['domains'] = [request.currentpageurl].concat(currPageRules['domains'].split('\n'))
+				currPageRules['domains'] = request.currentpageurl + '\n' + currPageRules['domains']
 				result = filterUserRules(currPageRules, hostNames)
-				console.log('default page rules:')
-				console.log(result)
+				// console.log('default page rules:')
+				// console.log(result)
 			}
 		}
 		sendResponse({mapping: result});

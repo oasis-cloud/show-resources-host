@@ -49,14 +49,16 @@
 	}
 	function mkListHtml(datas) {
 		var listHtml = [];
-		var color = ['#33c86a', '#cb1c39', '#69879f', '#78bd22', '#762ca7', '#03c0c6', '#209cee'];
+		var color = ['#33c86a', '#69879f', '#78bd22', '#762ca7', '#03c0c6', '#209cee'];
 		var ran = 0;
 		var fromCache = ''
 		for(var i = 0; i < datas.length; i++) {
 			ran = (ran >= color.length) ? 0 : ran;	
 			if(datas[i]['detail']) {
-				fromCache = datas[i]['detail']['fromCache'] ? 'fromCache' : 'isFresh'
+				fromCache = datas[i]['detail']['fromCache'] ? 'fromCache' : 'fromServer'
 				listHtml.push('<li class="fore-li"><span class="fore1" style="background:'+color[ran]+'">' + datas[i]['host'] + '</span><span class="fore2" style="background:'+color[ran]+'">' + datas[i]['detail']['ip'] + '</span><span class="fore3" style="background:'+color[ran]+'">' + fromCache + '</span></li>')
+			} else {
+				listHtml.push('<li class="fore-li"><span class="fore1" style="background:#cb1c39">' + datas[i]['host'] + '</span><span class="fore2" style="background:#cb1c39">network error</span></li>')
 			}
 			ran += 1;
 		}

@@ -83,7 +83,7 @@ window.onload = function() {
 		}
 	})
 	function init(App) {
-		App.setting = LS.getItem('show-ip-setting') === 'true' || false
+		App.setting = (LS.getItem('show-ip-setting') === 'true' || LS.getItem('show-ip-setting') == null) || false
 		App.domainLists = JSON.parse(LS.getItem('show-ip-domain-lists') || '[]')
 	}
 	init(App)
