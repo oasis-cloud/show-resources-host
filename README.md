@@ -4,6 +4,26 @@ Show IP 是一款 Chrome 扩展，通过使用 Show IP 可以在激活的 Tab �
 
 默认包含 script link page domain 三种类型的 Host 显示。
 
+# 安装
+
+Step1
+
+	git clone https://github.com/wanbei/show-ip.git
+
+Step2
+
+打开 Chrome ，地址栏输入 `chrome://extensions/`
+
+Step3
+
+勾选`开发者模式`, 点击`加载已解压的扩展程序...`，选择刚刚 `clone` 下来的代码目录
+
+### 温馨提示
+
+由于使用开发者模式运行插件，每次打开浏览器都会弹出提示框，内容如下
+
+'请停用以开发者模式运行的扩展程序'，选择取消即可。
+
 # 版本特性
 
 ### 1.0.3
@@ -20,9 +40,9 @@ Show IP 是一款 Chrome 扩展，通过使用 Show IP 可以在激活的 Tab �
 
 ### 1.0.1
 
-* 新增了默认设置的开关，通过关闭默认设置，可以不展示 页面中 script 元素、link 元素的 Host。
+* 新增了默认设置的开关，通过关闭默认设置，可不展示 页面中 `script` 元素、`link` 元素引用资源域名对应的 IP 地址。
 
 
 ### 1.0.0
 
-* 默认展示页面源码中所有 script 元素、link 元素的 Host。
+* 默认展示页面源码中所有 `script` 元素、`link` 元素引用资源域名对应的 IP 地址。
