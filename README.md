@@ -1,15 +1,16 @@
-# SSSH
+# Show IP
 
-![插件截图](./screenshot.png "插件截图")
+Show IP 是一款 Chrome 扩展，通过使用 Show IP 可以在激活的 Tab 选项卡中显示静态资源以及当前页面使用的 Host。
 
-![插件截图](./screenshot1.png "插件截图")
-
-
-SSSH 是一款 Chrome 扩展，通过使用 SSSH 可以在激活的 Tab 选项卡中显示静态资源以及当前页面使用的 Host。
-
-默认包含 script link location.host 三种类型的 Host 显示。
+默认包含 script link page domain 三种类型的 Host 显示。
 
 # 版本特性
+
+### 1.0.3
+
+* 优化设置操作
+* 增加资源来源标识
+* 增加网络错误提示
 
 ### 1.0.2
 
